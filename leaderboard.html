@@ -17,15 +17,16 @@
 
 <template name="leaderboard">
   <div class="leaderboard">
-		<div class="player">
-    <span class="title">Connoiseur</span>
-		<span class="totes">Tab</span>
-		<span class="totes">Total</span>
-		</div>
-		<hr>
-    {{#each players}}
-      {{> player}}
-    {{/each}}
+    <table class='player'>
+      <tr>
+        <td>Name</td>
+        <td>Morale</td>
+        <td>Message</td>
+      </tr>
+      {{#each players}}
+        {{> player}}
+      {{/each}}
+    </table>
 		<br>
 		{{> newplayer}}
   </div>
@@ -35,7 +36,7 @@
   <div class="details">
     <div class="name">{{selected_name}}</div>
 		<br>
-    <input type="button" class="inc btn btn-warning" value="+1 to tab" />
+    <input type="button" class="inc btn btn-warning" value="+1 to morale" />
 		<input type="button" class="cleartab btn btn-danger" value="Clear tab" />
   </div>
   {{/if}}
@@ -46,11 +47,11 @@
 </template>
 
 <template name="player">
-  <div class="player {{selected}}">
-    <span class="name">{{name}}</span>
-    <span class="tab">{{tab}}</span>
-		<span class="total">{{total}}</span>
-  </div>
+  <tr class='player {{selected}}'>
+    <td>{{name}}</td>
+    <td class='morale'>{{morale}}</td>
+    <td>{{message}}</td>
+  </tr>
 </template>
 
 <template name="newplayer">

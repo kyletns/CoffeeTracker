@@ -5,7 +5,7 @@ Players = new Meteor.Collection("players");
 
 if (Meteor.is_client) {
   Template.leaderboard.players = function () {
-    return Players.find({}, {sort: {tab: -1, name: 1}});
+    return Players.find({}, {sort: {morale: -1, name: 1}});
   };
 
   Template.leaderboard.selected_name = function () {
@@ -45,6 +45,9 @@ if (Meteor.is_client) {
   Template.player.events = {
     'click': function () {
       Session.set("selected_player", this._id);
+    },
+    'click .morale': function () {
+			Players.update(this._id,{$inc: {morale: 1}});
     }
   };
 }
@@ -53,19 +56,11 @@ if (Meteor.is_client) {
 if (Meteor.is_server) {
   Meteor.startup(function () {
     if (Players.find().count() === 0) {
-      var names = ["MJB",
-                   "Eric",
-                   "Matt",
-                   "Silvia",
+      var names = ["Nellie",
                    "Jon",
-                   "Jessica",
-									 "Naureen",
-									 "Javier",
-									 "Peter",
-									 "Abhilash",
-									 "Jonas"];
+                   "Kyle"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], tab: 0, total: 0});
+        Players.insert({name: names[i], message: '', morale: 0});
 		}
   });
 }
